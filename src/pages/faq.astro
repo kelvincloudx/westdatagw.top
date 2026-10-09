@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FAQSection from '../components/FAQSection.astro';
+import { FAQ_ITEMS } from '../data/faq';
+
+const title = "WESTDATA 常见问题 FAQ 全集｜西部数据使用解答";
+const description = "解答西部数据 WESTDATA 订阅套餐的流量计算、节点选择、客户端策略组、更新失败与故障诊断等 10 大热点使用问题。";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://westdatagw.top/" },
+    { "@type": "ListItem", "position": 2, "name": "常见问题", "item": "https://westdatagw.top/faq/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": FAQ_ITEMS.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+---
+
+<Layout title={title} description={description} canonicalPath="/faq/" jsonLd={[breadcrumbSchema, faqSchema]}>
+  <div class="page-header container">
+    <nav class="breadcrumbs">
+      <a href="/">首页</a> &gt; <span>常见问题</span>
+    </nav>
+    <h1 class="page-title">WESTDATA 常见疑问与解答 FAQ</h1>
+    <p class="page-desc">
+      包含订阅账单、设备并发、节点选线、更新原理与环境冲突等核心解答，助您快速解决疑虑。
+    </p>
+  </div>
+
+  <FAQSection />
+</Layout>
+
+<style>
+  .page-header {
+    padding: 3rem 0 1rem;
+  }
+
+  .breadcrumbs {
+    font-size: 0.88rem;
+    color: var(--violet-grey);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--pastel-violet);
+  }
+
+  .page-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-desc {
+    font-size: 1.05rem;
+    color: var(--violet-grey);
+    max-width: 700px;
+  }
+</style>

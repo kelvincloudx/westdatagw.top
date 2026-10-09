@@ -1,0 +1,17 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+*.log
+
+# OS & Environment
+.DS_Store
+.env
+.env.*
+
+# Temporary / Scratch
+scratch/

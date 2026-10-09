@@ -1,0 +1,160 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { AFFILIATE_URL } from '../data/plans';
+
+const title = "WESTDATA 新手快速入门指南｜西部数据开始使用流程";
+const description = "快速了解 WESTDATA 网络订阅的开通、凭据获取、客户端下载与节点接入全流程，适合首次使用代理服务的用户。";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://westdatagw.top/" },
+    { "@type": "ListItem", "position": 2, "name": "开始使用", "item": "https://westdatagw.top/start/" }
+  ]
+};
+---
+
+<Layout title={title} description={description} canonicalPath="/start/" jsonLd={breadcrumbSchema}>
+  <div class="page-header container">
+    <nav class="breadcrumbs">
+      <a href="/">首页</a> &gt; <span>开始使用</span>
+    </nav>
+    <h1 class="page-title">WESTDATA 新手快速入门指南</h1>
+    <p class="page-desc">
+      只需跟随以下 4 个关键步骤，即可轻松在您的智能手机或电脑上完成 WESTDATA 网络的配置与连接。
+    </p>
+  </div>
+
+  <section class="start-content-section container">
+    <div class="guide-cards">
+      <div class="guide-card">
+        <div class="card-step-num">Step 01</div>
+        <h2>选择并确认订阅方案</h2>
+        <p>
+          首先，请浏览 WESTDATA 提供的四档参考套餐（包含 15元基础体验版、28元进阶专线版、48元旗舰尊享版与 68元不限时流量包）。选择适合您设备数量与流量消费习惯的方案。
+        </p>
+        <a href="/plans/" class="btn btn-secondary">查看完整套餐说明</a>
+      </div>
+
+      <div class="guide-card">
+        <div class="card-step-num">Step 02</div>
+        <h2>通过指定入口获取凭据</h2>
+        <p>
+          点击下方链接进入 WESTDATA 指定的服务合作平台，完成账号注册并获取专属的订阅配置 URL。
+        </p>
+        <p class="important-tip">
+          <strong>重要安全提醒：</strong>您的订阅链接包含个人验证密钥，请妥善保管，切勿发送给他人或公布在公开网络环境。
+        </p>
+        <a 
+          href={AFFILIATE_URL} 
+          target="_blank" 
+          rel="sponsored nofollow noopener" 
+          class="btn btn-primary"
+        >
+          前往指定订阅平台 ↗
+        </a>
+      </div>
+
+      <div class="guide-card">
+        <div class="card-step-num">Step 03</div>
+        <h2>下载并安装适配客户端</h2>
+        <p>
+          根据您的设备操作系统（Windows, macOS, iOS 或 Android），选择安装推荐的代理客户端，例如 ClashParty、Clash Verge 或 Shadowrocket。
+        </p>
+        <a href="/clients/" class="btn btn-secondary">客户端下载与设置教程</a>
+      </div>
+
+      <div class="guide-card">
+        <div class="card-step-num">Step 04</div>
+        <h2>导入订阅并检查连通性</h2>
+        <p>
+          在客户端中找到“导入订阅”或“配置”入口，粘贴第 2 步中获取的订阅 URL，更新节点列表后开启“系统代理”或“开启代理”即可开始使用。
+        </p>
+        <a href="/learn/fault-classification/" class="btn btn-secondary">遇故障排查指南</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding: 3rem 0 1rem;
+  }
+
+  .breadcrumbs {
+    font-size: 0.88rem;
+    color: var(--violet-grey);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--pastel-violet);
+  }
+
+  .page-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-desc {
+    font-size: 1.05rem;
+    color: var(--violet-grey);
+    max-width: 700px;
+  }
+
+  .start-content-section {
+    padding: 2rem 0 5rem;
+  }
+
+  .guide-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 850px;
+  }
+
+  .guide-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 2rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card-step-num {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--neon-green);
+    letter-spacing: 0.05em;
+  }
+
+  .guide-card h2 {
+    font-size: 1.4rem;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .guide-card p {
+    color: var(--pastel-violet);
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .important-tip {
+    background: rgba(255, 101, 122, 0.1);
+    border-left: 3px solid var(--coral-red);
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem !important;
+  }
+
+  .guide-card .btn {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+</style>

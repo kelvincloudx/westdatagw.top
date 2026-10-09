@@ -1,0 +1,94 @@
+---
+import { FAQ_ITEMS } from '../data/faq';
+---
+
+<section id="faq-section" class="faq-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">07 常见问题</span>
+      <h2 class="section-title">WESTDATA 常见疑问解答 FAQ</h2>
+      <p class="section-desc">
+        汇总 WESTDATA 用户在订阅购买、客户端配置与网络连通中最常遇到的问题与详细解答。
+      </p>
+    </div>
+
+    <div class="faq-list">
+      {FAQ_ITEMS.map((item) => (
+        <details class="faq-item" open>
+          <summary class="faq-question">
+            <span class="q-title">{item.question}</span>
+            <span class="q-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    padding: 5rem 0;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.75rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .faq-item[open] {
+    border-color: var(--border-active);
+    background: var(--bg-card-hover);
+  }
+
+  .faq-question {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .q-icon {
+    font-size: 1.5rem;
+    color: var(--neon-green);
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item[open] .q-icon {
+    transform: rotate(45deg);
+    color: var(--coral-red);
+  }
+
+  .faq-answer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--pastel-violet);
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+</style>

@@ -1,0 +1,252 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { AFFILIATE_URL } from '../data/plans';
+
+const title = "WESTDATA 客户端配置指南｜ClashParty / Shadowrocket 使用说明";
+const description = "为您提供 Windows、macOS、iOS 和 Android 全平台网络客户端（ClashParty, Clash Verge, Shadowrocket）配置与使用说明。";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://westdatagw.top/" },
+    { "@type": "ListItem", "position": 2, "name": "客户端指南", "item": "https://westdatagw.top/clients/" }
+  ]
+};
+---
+
+<Layout title={title} description={description} canonicalPath="/clients/" jsonLd={breadcrumbSchema}>
+  <div class="page-header container">
+    <nav class="breadcrumbs">
+      <a href="/">首页</a> &gt; <span>客户端指南</span>
+    </nav>
+    <h1 class="page-title">全平台客户端配置与软件指南</h1>
+    <p class="page-desc">
+      选择您的设备操作系统，了解主流代理客户端的订阅配置、系统代理开关及策略组管理。
+    </p>
+  </div>
+
+  <section class="clients-section container">
+    <div class="platform-grid">
+      <!-- Windows -->
+      <div class="platform-card">
+        <div class="platform-header">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" color="#D8FC68">
+            <path d="M0 3.449L9.75 2.1v9.451H0m10.95 0h12.05V0L10.95 1.749M0 12.55L9.75 13.9v9.449L0 21.999M10.95 22.25L23 24V12.551H10.95"></path>
+          </svg>
+          <h2>Windows 操作系统</h2>
+        </div>
+        <div class="platform-body">
+          <p class="recommend-app">推荐客户端：<strong>ClashParty / Clash Verge</strong></p>
+          <ol class="setup-steps">
+            <li>在平台后台获取 Clash 格式的订阅配置链接。</li>
+            <li>打开 ClashParty 客户端，进入“Profiles”配置界面。</li>
+            <li>在订阅 URL 文本框中粘贴链接，点击“Download / Download Profile”。</li>
+            <li>开启主页面的“System Proxy（系统代理）”开关即可。</li>
+          </ol>
+          <div class="card-links">
+            <a href="/learn/policy-groups/" class="text-link">查看策略组配置说明 ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- macOS -->
+      <div class="platform-card">
+        <div class="platform-header">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" color="#FF657A">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.64 1.35-.57.66-.97 1.73-.83 2.76 1.01.08 2.04-.51 2.54-1.26z"></path>
+          </svg>
+          <h2>macOS 操作系统</h2>
+        </div>
+        <div class="platform-body">
+          <p class="recommend-app">推荐客户端：<strong>Clash Verge macOS / ClashX</strong></p>
+          <ol class="setup-steps">
+            <li>复制 WESTDATA 订阅配置加密链接。</li>
+            <li>启动 Clash Verge，点击配置页“导入”并粘贴链接。</li>
+            <li>勾选“设置为系统代理”。并在顶部状态栏调整策略组节点。</li>
+          </ol>
+          <div class="card-links">
+            <a href="/learn/proxy-environment/" class="text-link">环境接管与 TUN 模式 ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- iOS -->
+      <div class="platform-card">
+        <div class="platform-header">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" color="#EAE6FF">
+            <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.01zM17 19H7V5h10v14z"></path>
+          </svg>
+          <h2>iOS 苹果设备</h2>
+        </div>
+        <div class="platform-body">
+          <p class="recommend-app">推荐客户端：<strong>Shadowrocket / Stash</strong></p>
+          <ol class="setup-steps">
+            <li>在 iOS App Store 获取 Shadowrocket 软件。</li>
+            <li>打开应用，点击右上角加号“+”，类型选择“Subscribe（订阅）”。</li>
+            <li>粘贴订阅地址并保存，在主页面下拉刷新获取所有节点。</li>
+            <li>拨动顶部连接开关，首次使用需允许添加 VPN 配置。</li>
+          </ol>
+          <div class="card-links">
+            <a href="/learn/subscription-refresh/" class="text-link">订阅手动更新与刷新 ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Android -->
+      <div class="platform-card">
+        <div class="platform-header">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" color="#D8FC68">
+            <path d="M6 18c0 .55.45 1 1 1h1v3c0 .55.45 1 1 1s1-.45 1-1v-3h4v3c0 .55.45 1 1 1s1-.45 1-1v-3h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.72 1.23 12.89 1 12 1c-.89 0-1.72.23-2.64.63L7.88.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.3 1.3C6.77 3.26 5.5 5.5 5.5 8h13c0-2.5-1.27-4.74-2.97-5.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"></path>
+          </svg>
+          <h2>Android 安卓设备</h2>
+        </div>
+        <div class="platform-body">
+          <p class="recommend-app">推荐客户端：<strong>Clash for Android / Surfboard</strong></p>
+          <ol class="setup-steps">
+            <li>安装 Clash for Android 客户端。</li>
+            <li>点击“配置” -> “新配置” -> “URL”。</li>
+            <li>粘贴订阅地址并设置自动更新时间隔。</li>
+            <li>返回主界面选中新建的配置，点击“已停止”按钮开启代理。</li>
+          </ol>
+          <div class="card-links">
+            <a href="/learn/node-switching/" class="text-link">节点选线与延迟测试 ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="start-banner">
+      <h3>准备好开始配置您的设备了吗？</h3>
+      <p>前往 WESTDATA 指定商业平台开通订阅，随时获取最新节点服务。</p>
+      <a 
+        href={AFFILIATE_URL} 
+        target="_blank" 
+        rel="sponsored nofollow noopener" 
+        class="btn btn-neon btn-lg"
+      >
+        前往指定订阅入口 ↗
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding: 3rem 0 1rem;
+  }
+
+  .breadcrumbs {
+    font-size: 0.88rem;
+    color: var(--violet-grey);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--pastel-violet);
+  }
+
+  .page-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-desc {
+    font-size: 1.05rem;
+    color: var(--violet-grey);
+    max-width: 700px;
+  }
+
+  .clients-section {
+    padding: 2rem 0 5rem;
+  }
+
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .platform-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+  }
+
+  .platform-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .platform-header h2 {
+    font-size: 1.35rem;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .recommend-app {
+    font-size: 0.95rem;
+    color: var(--neon-green);
+    margin-bottom: 1rem;
+  }
+
+  .setup-steps {
+    padding-left: 1.25rem;
+    color: var(--pastel-violet);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .setup-steps li {
+    margin-bottom: 0.5rem;
+  }
+
+  .card-links {
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border-color);
+  }
+
+  .text-link {
+    color: var(--coral-red);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .start-banner {
+    background: linear-gradient(135deg, rgba(255, 101, 122, 0.15) 0%, rgba(216, 252, 104, 0.15) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .start-banner h3 {
+    font-size: 1.8rem;
+    color: #ffffff;
+    font-weight: 800;
+  }
+
+  .start-banner p {
+    color: var(--pastel-violet);
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 850px) {
+    .platform-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,468 @@
+---
+import { PLANS, PLAN_DISCLAIMER, AFFILIATE_URL } from '../data/plans';
+---
+
+<section id="workbench-section" class="workbench-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">03 订阅工作台</span>
+      <h2 class="section-title">WESTDATA 参考套餐控制面板</h2>
+      <p class="section-desc">
+        无需繁琐对比，切换左侧选单实时调阅各档参考套餐的详细权益、周期规则与核实状态。
+      </p>
+    </div>
+
+    <!-- Interactive Plan Switcher Panel -->
+    <div class="workbench-card">
+      <div class="plan-tabs-col" role="tablist" aria-label="WESTDATA 套餐列表">
+        {PLANS.map((plan, index) => (
+          <button 
+            id={`tab-${plan.id}`}
+            class={`plan-tab-btn ${index === 1 ? 'active' : ''}`}
+            role="tab"
+            aria-selected={index === 1 ? 'true' : 'false'}
+            aria-controls={`panel-${plan.id}`}
+            data-plan-id={plan.id}
+          >
+            <div class="tab-main">
+              <span class="tab-name">{plan.name}</span>
+              <span class="tab-price">{plan.unit}{plan.price} / {plan.period}</span>
+            </div>
+            {plan.badge && <span class="tab-badge">{plan.badge}</span>}
+          </button>
+        ))}
+      </div>
+
+      <div class="plan-detail-col">
+        {PLANS.map((plan, index) => (
+          <div 
+            id={`panel-${plan.id}`}
+            class={`plan-panel ${index === 1 ? 'active' : ''}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${plan.id}`}
+          >
+            <div class="panel-header">
+              <div class="panel-title-group">
+                <h3 class="panel-name">{plan.name}</h3>
+                <span class="panel-traffic-tag">{plan.trafficDetail}</span>
+              </div>
+              <div class="panel-price-box">
+                <span class="panel-currency">{plan.unit}</span>
+                <span class="panel-amount">{plan.price}</span>
+                <span class="panel-period">/ {plan.period}</span>
+              </div>
+            </div>
+
+            <div class="panel-body">
+              <div class="features-group">
+                <h4 class="group-title">公开参考权益说明：</h4>
+                <ul class="features-list">
+                  {plan.features.map(feature => (
+                    <li>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D8FC68" stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="notes-group">
+                <h4 class="group-title">条款与规则须知：</h4>
+                <ul class="notes-list">
+                  {plan.notes.map(note => (
+                    <li>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A0C2" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                      </svg>
+                      <span>{note}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="panel-footer">
+                <div class="status-box">
+                  <span class="status-label">数据核实状态：</span>
+                  <span class="status-value">{plan.verificationStatus}</span>
+                </div>
+                <a 
+                  href={AFFILIATE_URL} 
+                  target="_blank" 
+                  rel="sponsored nofollow noopener"
+                  class="btn btn-primary btn-lg"
+                >
+                  开通 {plan.name} ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Static Readable Comparison Table for SEO & No-JS Fallback -->
+    <div class="comparison-table-wrapper">
+      <h3 class="table-caption">全量参考套餐静态对比表</h3>
+      <div class="table-responsive">
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th>套餐名称</th>
+              <th>参考价格</th>
+              <th>流量额度</th>
+              <th>付款周期</th>
+              <th>公开参考设备上限</th>
+              <th>公开参考端口带宽</th>
+              <th>支持客户端</th>
+              <th>极速开通入口</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PLANS.map(p => (
+              <tr>
+                <td class="td-name"><strong>{p.name}</strong></td>
+                <td class="td-price">{p.unit}{p.price}</td>
+                <td>{p.traffic}</td>
+                <td>{p.period === '月' ? '按月支付' : '一次性付清'}</td>
+                <td>{p.id === 'unlimited' ? '不限设备数' : p.id === 'basic' ? '3 台设备' : p.id === 'pro' ? '5 台设备' : '10 台设备'}</td>
+                <td>{p.id === 'basic' ? '最高 500Mbps' : p.id === 'pro' ? '最高 2.5Gbps' : p.id === 'ultimate' ? '10Gbps VIP' : 'IEPL 专线'}</td>
+                <td>Clash / Shadowrocket / ClashParty</td>
+                <td>
+                  <a 
+                    href={AFFILIATE_URL} 
+                    target="_blank" 
+                    rel="sponsored nofollow noopener" 
+                    class="table-cta"
+                  >
+                    前往平台 ↗
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<style>
+  .workbench-section {
+    padding: 5rem 0;
+  }
+
+  .workbench-card {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+
+  .plan-tabs-col {
+    background: rgba(16, 17, 39, 0.6);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    border-right: 1px solid var(--border-color);
+  }
+
+  .plan-tab-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.25rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--pastel-violet);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.25s ease;
+  }
+
+  .plan-tab-btn:hover {
+    border-color: rgba(234, 230, 255, 0.3);
+    background: rgba(234, 230, 255, 0.04);
+  }
+
+  .plan-tab-btn.active {
+    background: var(--bg-card-hover);
+    border-color: var(--coral-red);
+    box-shadow: 0 4px 15px rgba(255, 101, 122, 0.2);
+  }
+
+  .tab-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tab-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .tab-price {
+    font-size: 0.85rem;
+    color: var(--neon-green);
+    margin-top: 0.2rem;
+  }
+
+  .tab-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: var(--coral-red);
+    color: #ffffff;
+  }
+
+  .plan-detail-col {
+    padding: 2.2rem;
+    position: relative;
+  }
+
+  .plan-panel {
+    display: none;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .plan-panel.active {
+    display: flex;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .panel-name {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .panel-traffic-tag {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--neon-green);
+    background: rgba(216, 252, 104, 0.1);
+    padding: 0.2rem 0.75rem;
+    border-radius: 50px;
+    margin-top: 0.4rem;
+  }
+
+  .panel-price-box {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+  }
+
+  .panel-currency {
+    font-size: 1.25rem;
+    color: var(--coral-red);
+    font-weight: 700;
+  }
+
+  .panel-amount {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .panel-period {
+    font-size: 0.9rem;
+    color: var(--violet-grey);
+  }
+
+  .group-title {
+    font-size: 0.95rem;
+    color: var(--pastel-violet);
+    margin-bottom: 0.85rem;
+    font-weight: 700;
+  }
+
+  .features-list, .notes-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+
+  .features-list li, .notes-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    color: var(--pastel-violet);
+  }
+
+  .panel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .status-label {
+    font-size: 0.85rem;
+    color: var(--violet-grey);
+  }
+
+  .status-value {
+    font-size: 0.85rem;
+    color: var(--neon-green);
+    font-weight: 600;
+  }
+
+  .btn-lg {
+    padding: 0.9rem 2rem;
+    font-size: 1.05rem;
+  }
+
+  /* Table styling */
+  .comparison-table-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .table-caption {
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+  }
+
+  .plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  .plan-table th, .plan-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .plan-table th {
+    background: rgba(16, 17, 39, 0.8);
+    color: var(--pastel-violet);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .plan-table td {
+    color: var(--violet-grey);
+  }
+
+  .td-name strong {
+    color: #ffffff;
+  }
+
+  .td-price {
+    color: var(--coral-red);
+    font-weight: 700;
+  }
+
+  .table-cta {
+    color: var(--neon-green);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .disclaimer-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    background: rgba(255, 101, 122, 0.08);
+    border: 1px solid rgba(255, 101, 122, 0.25);
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    color: var(--pastel-violet);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 990px) {
+    .workbench-card {
+      grid-template-columns: 1fr;
+    }
+    .plan-tabs-col {
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+      flex-direction: row;
+      overflow-x: auto;
+    }
+    .plan-tab-btn {
+      flex: 1;
+      min-width: 200px;
+    }
+    .features-list, .notes-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .panel-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .panel-footer {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  const tabBtns = document.querySelectorAll('.plan-tab-btn');
+  const panels = document.querySelectorAll('.plan-panel');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const planId = btn.getAttribute('data-plan-id');
+      
+      tabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      const targetPanel = document.getElementById(`panel-${planId}`);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+    });
+  });
+</script>

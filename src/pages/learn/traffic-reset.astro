@@ -1,0 +1,8 @@
+---
+import ArticleDetail from '../../components/ArticleDetail.astro';
+import { ARTICLES } from '../../data/articles';
+
+const article = ARTICLES.find(a => a.slug === 'traffic-reset')!;
+---
+
+<ArticleDetail article={article} />

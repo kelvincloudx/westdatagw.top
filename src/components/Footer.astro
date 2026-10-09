@@ -1,0 +1,159 @@
+---
+import Logo from './Logo.astro';
+import { AFFILIATE_URL } from '../data/plans';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <Logo />
+        <p class="brand-desc">
+          WESTDATA 西部数据官网机场单品牌落地页。提供网络订阅方案参考、节点选线策略、客户端配置常识与故障诊断教程。
+        </p>
+      </div>
+
+      <div class="footer-nav">
+        <div class="nav-column">
+          <h4 class="column-title">核心页面</h4>
+          <ul class="footer-links">
+            <li><a href="/">首页</a></li>
+            <li><a href="/plans/">套餐方案</a></li>
+            <li><a href="/start/">开始使用</a></li>
+            <li><a href="/clients/">客户端指南</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-column">
+          <h4 class="column-title">知识与帮助</h4>
+          <ul class="footer-links">
+            <li><a href="/learn/">知识文章目录</a></li>
+            <li><a href="/faq/">常见问题 FAQ</a></li>
+            <li><a href="/learn/traffic-reset/">流量重置规则</a></li>
+            <li><a href="/learn/fault-classification/">故障诊断教程</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-column">
+          <h4 class="column-title">订阅入口</h4>
+          <ul class="footer-links">
+            <li>
+              <a 
+                href={AFFILIATE_URL} 
+                target="_blank" 
+                rel="sponsored nofollow noopener"
+                class="affiliate-link-item"
+              >
+                前往指定商业平台 ↗
+              </a>
+            </li>
+            <li><a href="/learn/plan-verification/">套餐核对须知</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="copyright">
+        &copy; 2026 WESTDATA 西部数据官网机场. 保留所有权利。
+      </p>
+
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: #0c0d1e;
+    border-top: 1px solid var(--border-color);
+    padding: 4rem 0 2.5rem;
+    margin-top: auto;
+    color: var(--violet-grey);
+    font-size: 0.9rem;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 3.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .brand-desc {
+    margin-top: 1.25rem;
+    line-height: 1.6;
+    max-width: 380px;
+    font-size: 0.88rem;
+  }
+
+  .footer-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .column-title {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .footer-links a {
+    color: var(--violet-grey);
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--pastel-violet);
+  }
+
+  .affiliate-link-item {
+    color: var(--neon-green) !important;
+    font-weight: 600;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(234, 230, 255, 0.08);
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  .copyright {
+    color: var(--pastel-violet);
+    font-weight: 500;
+  }
+
+  .disclaimer {
+    color: rgba(163, 160, 194, 0.7);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 850px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .footer-nav {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .footer-nav {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

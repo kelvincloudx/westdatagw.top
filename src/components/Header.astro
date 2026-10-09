@@ -1,0 +1,226 @@
+---
+import Logo from './Logo.astro';
+import { AFFILIATE_URL } from '../data/plans';
+
+const pathname = Astro.url.pathname;
+const navItems = [
+  { name: '首页', href: '/' },
+  { name: '套餐方案', href: '/plans/' },
+  { name: '开始使用', href: '/start/' },
+  { name: '客户端指南', href: '/clients/' },
+  { name: '知识文章', href: '/learn/' },
+  { name: '常见问题', href: '/faq/' }
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <Logo />
+
+    <nav class="desktop-nav" aria-label="主导航">
+      {navItems.map((item) => {
+        const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+        return (
+          <a href={item.href} class={`nav-link ${isActive ? 'active' : ''}`}>
+            {item.name}
+          </a>
+        );
+      })}
+    </nav>
+
+    <div class="header-actions">
+      <a 
+        href={AFFILIATE_URL} 
+        target="_blank" 
+        rel="sponsored nofollow noopener" 
+        class="btn btn-primary btn-sm cta-btn"
+      >
+        <span>前往指定平台</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+
+      <button id="mobile-toggle" class="mobile-toggle-btn" aria-label="切换菜单" aria-expanded="false">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <nav class="mobile-nav">
+      {navItems.map((item) => (
+        <a href={item.href} class="mobile-nav-link">
+          {item.name}
+        </a>
+      ))}
+      <a 
+        href={AFFILIATE_URL} 
+        target="_blank" 
+        rel="sponsored nofollow noopener" 
+        class="btn btn-neon mobile-cta"
+      >
+        前往指定平台
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(16, 17, 39, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--violet-grey);
+    transition: color 0.2s ease;
+    padding: 0.5rem 0;
+    position: relative;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: #ffffff;
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--coral-red);
+    border-radius: 2px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-sm {
+    padding: 0.5rem 1.15rem;
+    font-size: 0.85rem;
+  }
+
+  .mobile-toggle-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 110;
+  }
+
+  .icon-bar {
+    width: 100%;
+    height: 2px;
+    background-color: var(--pastel-violet);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-drawer {
+    display: none;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 72px);
+    background-color: var(--bg-dark);
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+    z-index: 105;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .mobile-drawer.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .mobile-nav-link {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--pastel-violet);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .mobile-cta {
+    margin-top: 1.5rem;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .desktop-nav {
+      display: none;
+    }
+    .mobile-toggle-btn {
+      display: flex;
+    }
+    .mobile-drawer {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-toggle');
+  const drawer = document.getElementById('mobile-drawer');
+
+  if (toggleBtn && drawer) {
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = drawer.classList.contains('open');
+      if (isOpen) {
+        drawer.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      } else {
+        drawer.classList.add('open');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  }
+</script>

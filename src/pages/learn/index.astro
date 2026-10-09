@@ -1,0 +1,177 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ARTICLES } from '../../data/articles';
+
+const title = "WESTDATA 知识文章目录｜西部数据网络技术与教程大全";
+const description = "收录西部数据 WESTDATA 官方 7 篇原创技术教程，涵盖流量重置、节点选线、订阅更新、策略组与异常诊断。";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://westdatagw.top/" },
+    { "@type": "ListItem", "position": 2, "name": "知识文章", "item": "https://westdatagw.top/learn/" }
+  ]
+};
+---
+
+<Layout title={title} description={description} canonicalPath="/learn/" jsonLd={breadcrumbSchema}>
+  <div class="page-header container">
+    <nav class="breadcrumbs">
+      <a href="/">首页</a> &gt; <span>知识文章</span>
+    </nav>
+    <h1 class="page-title">WESTDATA 技术与配置知识库</h1>
+    <p class="page-desc">
+      深入理解订阅规则、分流原理与网络排查常识，帮助您构建高效、稳定的日常通信环境。
+    </p>
+  </div>
+
+  <section class="learn-index-section container">
+    <div class="articles-grid">
+      {ARTICLES.map((article, index) => (
+        <article class="article-card">
+          <div class="card-meta">
+            <span class="card-num">0{index + 1}</span>
+            <span class="card-category">{article.category}</span>
+            <span class="card-date">{article.publishDate}</span>
+          </div>
+
+          <h2 class="card-title">
+            <a href={article.url}>{article.title}</a>
+          </h2>
+          <p class="card-summary">{article.summary}</p>
+
+          <div class="card-footer">
+            <span class="read-time">阅读时间：{article.readTime}</span>
+            <a href={article.url} class="btn btn-secondary btn-sm">阅读全文 ↗</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding: 3rem 0 1rem;
+  }
+
+  .breadcrumbs {
+    font-size: 0.88rem;
+    color: var(--violet-grey);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--pastel-violet);
+  }
+
+  .page-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-desc {
+    font-size: 1.05rem;
+    color: var(--violet-grey);
+    max-width: 700px;
+  }
+
+  .learn-index-section {
+    padding: 2rem 0 5rem;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+  }
+
+  .article-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.25s ease;
+  }
+
+  .article-card:hover {
+    border-color: var(--coral-red);
+    transform: translateY(-3px);
+    background: var(--bg-card-hover);
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .card-num {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--coral-red);
+  }
+
+  .card-category {
+    background: rgba(216, 252, 104, 0.1);
+    color: var(--neon-green);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .card-date {
+    color: var(--violet-grey);
+    margin-left: auto;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 0.85rem;
+  }
+
+  .card-title a {
+    color: #ffffff;
+    transition: color 0.2s ease;
+  }
+
+  .card-title a:hover {
+    color: var(--coral-red);
+  }
+
+  .card-summary {
+    font-size: 0.95rem;
+    color: var(--pastel-violet);
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+  }
+
+  .card-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .read-time {
+    font-size: 0.85rem;
+    color: var(--violet-grey);
+  }
+
+  @media (max-width: 850px) {
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

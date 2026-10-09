@@ -1,0 +1,255 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ARTICLES, type Article } from '../data/articles';
+import { AFFILIATE_URL } from '../data/plans';
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+
+const relatedArticles = ARTICLES.filter(a => article.relatedSlugs.includes(a.slug));
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": article.title,
+  "description": article.metaDescription,
+  "datePublished": article.publishDate,
+  "dateModified": article.publishDate,
+  "mainEntityOfPage": `https://westdatagw.top${article.url}`,
+  "author": {
+    "@type": "Organization",
+    "name": "WESTDATA 西部数据官网团队"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "西部数据官网机场 WESTDATA"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://westdatagw.top/" },
+    { "@type": "ListItem", "position": 2, "name": "知识文章", "item": "https://westdatagw.top/learn/" },
+    { "@type": "ListItem", "position": 3, "name": article.title, "item": `https://westdatagw.top${article.url}` }
+  ]
+};
+---
+
+<Layout 
+  title={article.metaTitle} 
+  description={article.metaDescription} 
+  canonicalPath={article.url}
+  ogType="article"
+  jsonLd={[articleSchema, breadcrumbSchema]}
+>
+  <div class="article-header-wrapper">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href="/">首页</a> &gt; <a href="/learn/">知识文章</a> &gt; <span>{article.category}</span>
+      </nav>
+      
+      <div class="header-meta">
+        <span class="category-pill">{article.category}</span>
+        <span class="meta-date">发布日期：{article.publishDate}</span>
+        <span class="meta-time">阅读约 {article.readTime}</span>
+      </div>
+
+      <h1 class="article-main-title">{article.title}</h1>
+      <p class="article-subtitle">{article.subtitle}</p>
+    </div>
+  </div>
+
+  <div class="container article-body-container">
+    <div class="article-main-content">
+      <div class="prose" set:html={article.contentHtml} />
+
+      <div class="article-cta-box">
+        <h3>关于 WESTDATA 网络订阅方案</h3>
+        <p>若需要开通订阅或了解各档参考套餐的具体详情，可点击下方按钮访问平台。</p>
+        <div class="cta-btns">
+          <a href="/plans/" class="btn btn-secondary">对比套餐方案</a>
+          <a 
+            href={AFFILIATE_URL} 
+            target="_blank" 
+            rel="sponsored nofollow noopener" 
+            class="btn btn-primary"
+          >
+            前往指定商业入口 ↗
+          </a>
+        </div>
+      </div>
+
+      {relatedArticles.length > 0 && (
+        <div class="related-articles-box">
+          <h3 class="related-title">推荐延伸阅读</h3>
+          <div class="related-list">
+            {relatedArticles.map(rel => (
+              <a href={rel.url} class="related-item">
+                <span class="rel-tag">{rel.category}</span>
+                <span class="rel-title">{rel.title}</span>
+                <span class="rel-arrow">阅读 ↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .article-header-wrapper {
+    background: rgba(25, 27, 58, 0.6);
+    border-bottom: 1px solid var(--border-color);
+    padding: 3rem 0 2.5rem;
+  }
+
+  .breadcrumbs {
+    font-size: 0.88rem;
+    color: var(--violet-grey);
+    margin-bottom: 1.25rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--pastel-violet);
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: var(--violet-grey);
+  }
+
+  .category-pill {
+    background: rgba(216, 252, 104, 0.12);
+    color: var(--neon-green);
+    padding: 0.2rem 0.65rem;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  .article-main-title {
+    font-size: 2.3rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+
+  .article-subtitle {
+    font-size: 1.1rem;
+    color: var(--violet-grey);
+    line-height: 1.6;
+    max-width: 800px;
+  }
+
+  .article-body-container {
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .article-main-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .article-cta-box {
+    margin-top: 3.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-active);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .article-cta-box h3 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .article-cta-box p {
+    color: var(--pastel-violet);
+    font-size: 0.98rem;
+  }
+
+  .cta-btns {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .related-articles-box {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .related-title {
+    font-size: 1.3rem;
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+
+  .related-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .related-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .related-item:hover {
+    border-color: var(--coral-red);
+  }
+
+  .rel-tag {
+    font-size: 0.78rem;
+    color: var(--neon-green);
+    background: rgba(216, 252, 104, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .rel-title {
+    font-size: 0.98rem;
+    color: #ffffff;
+    flex: 1;
+    font-weight: 600;
+  }
+
+  .rel-arrow {
+    font-size: 0.88rem;
+    color: var(--coral-red);
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .article-main-title {
+      font-size: 1.75rem;
+    }
+    .cta-btns {
+      flex-direction: column;
+    }
+  }
+</style>
